@@ -40,9 +40,9 @@ async def 予約確認(ctx, a: int):
     reply = "予約を表示しますね。"
     await ctx.send(reply)
     BossName = BossList[a]
-    BookList = "Booking" + a
+    BookList = "Booking" + str(a)
     member = ""
-    for one in BookList:
+    for one in eval(BookList):
         member += one + " "
     await ctx.send(BossName + ":" + member)
 
