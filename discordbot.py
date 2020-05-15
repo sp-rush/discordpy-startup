@@ -7,7 +7,7 @@ import traceback
 client = commands.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 #
-#TOKEN = 'NzEwNDgwMTY3Mzk0NDc2MTEx.Xr5ZVg.ZS9rMo6APmzqbyHXjO525_y_DoM' #TOKENIDの部分を自分のIDに変える
+#TOKEN = '' #TOKENIDの部分を自分のIDに変える
 
 RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
