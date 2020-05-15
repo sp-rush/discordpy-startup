@@ -13,7 +13,7 @@ BossNum = ["1","2","3","4","5"] # ボス番号
 BossList = ["0","ミノタウロス","トライロッカー","メガラパーン","ワイルドグリフォン","ゴブリングレート"] # ボス名前
 BossHP = 0 # ボスHP
 MemberList = [] #メンバーリスト
-Booking1 = [] # 予約を追加するリスト
+Booking1 = ["すぷ","コペ丸"] # 予約を追加するリスト
 Booking2 = [] # book→予約
 Booking3 = []
 Booking4 = []
@@ -39,15 +39,10 @@ async def 引き算(ctx, a: int, b: int):
 async def 予約確認(ctx, a: int):
     reply = "予約を表示しますね。"
     await ctx.send(reply)
-    for Boss in BossNum:
-        tmpList = []
-        if Boss in a:
-            BookList = "Booking" + Boss
-            tmpList = [x[0] for x in eval(BookList)]
-            BossName = BossList[int(Boss)]
-            member = ""
-            for one in tmpList:
-                member += one + " "
+    BossName = BossList[a]
+    member = ""
+    for one in tmpList:
+        member += one + " "
     await ctx.send(BossName + ":" + member)
 
 @bot.command()
