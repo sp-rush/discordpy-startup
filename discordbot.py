@@ -37,14 +37,15 @@ async def 引き算(ctx, a: int, b: int):
 
 @bot.command()
 async def 予約確認(ctx, a: int):
-    await ctx.send('予約を確認します。')
+    reply = "予約を表示しますね。"
+    await ctx.send(reply)
     for Boss in BossNum:
         tmpList = []
-            if Boss in a:
-                BookList = "Booking" + Boss
-                tmpList = [x[0] for x in eval(BookList)]
-                BossName = BossList[int(Boss)]
-                member = ""
+        if Boss in a:
+            BookList = "Booking" + Boss
+            tmpList = [x[0] for x in eval(BookList)]
+            BossName = BossList[int(Boss)]
+            member = ""
             for one in tmpList:
                 member += one + " "
     await ctx.send(BossName + ":" + member)
