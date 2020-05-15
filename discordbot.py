@@ -68,7 +68,7 @@ async def 予約全表示(ctx):
             member = ""
             for one in tmpList:
                 member += one + " "
-            await message.channel.send(BossName + ":" + member)
+            await ctx.send(BossName + ":" + member)
 
 @bot.command()
 async def ping(ctx):
