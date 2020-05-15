@@ -41,8 +41,21 @@ async def 予約確認(ctx, a: int):
     await ctx.send(reply)
     BossName = BossList[a]
     member = ""
-    for one in tmpList:
-        member += one + " "
+    if a == 1:
+        for one in Booking1:
+            member += one + " "
+    elif a == 2:
+        for one in Booking2:
+            member += one + " "
+    elif a == 3:
+        for one in Booking3:
+            member += one + " "
+    elif a == 4:
+        for one in Booking4:
+            member += one + " "
+    else:
+        for one in Booking5:
+            member += one + " "
     await ctx.send(BossName + ":" + member)
 
 @bot.command()
