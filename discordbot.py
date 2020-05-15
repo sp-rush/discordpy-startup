@@ -74,27 +74,22 @@ async def 予約全削除(ctx):
 async def 予約全表示(ctx):
     reply = "予約を全部表示しますね。"
     await ctx.send(reply)
-    member = ""
+    member = BossList[1]
     for one in Booking1:
         member += one + " "
-    BossName = BossList[1]
-    member += "\n"
+    member += "\n" + BossList[2]
     for one in Booking2:
         member += one + " "
-    BossName = BossList[2]
-    member += "\n"
+    member += "\n" + BossList[3]
     for one in Booking3:
         member += one + " "
-    BossName = BossList[3]
-    member += "\n"
+    member += "\n" +  BossList[4]
     for one in Booking4:
         member += one + " "
-    BossName = BossList[4]
-    member += "\n"
+    member += "\n" +  BossList[5]
     for one in Booking5:
         member += one + " "
-    BossName = BossList[5]
-    await ctx.send(BossName + ":" + member)
+    await ctx.send(member)
 
 @bot.command()
 async def ping(ctx):
