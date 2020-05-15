@@ -12,8 +12,9 @@ async def on_command_error(ctx, error):
     await ctx.send(error_msg)
 
 @bot.command()
-async def 足し算(ctx, a: int, b:int):
-    await ctx.send(a + b)
+async def 足し算(ctx, a: int, b: int):
+    ans = a + b
+    await ctx.send(a + '+' + b + 'は' + ans + 'です')
 
 @bot.command()
 async def ping(ctx):
