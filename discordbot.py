@@ -13,7 +13,7 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def 足し算(ctx, a: int, b:int):
-    await ctx.send('わかりました！\n' + a + '+' + b + 'は' + a+b + 'です！')
+    await ctx.send(a + b)
 
 @bot.command()
 async def ping(ctx):
