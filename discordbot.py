@@ -63,7 +63,7 @@ async def 予約確認(ctx, a: int):
     if flag == 0:
         await ctx.send(BossName + ":" + member)
     else:
-        await ctx.send("失敗しました。")
+        await ctx.send("表示失敗しました。")
 
 @bot.command()
 async def 予約全削除(ctx):
@@ -82,25 +82,30 @@ async def 予約全表示(ctx):
     reply = "予約を全部表示しますね。"
     await ctx.send(reply)
     member = ""
-    member += BossList[1] + ":"
+    BossName = BossList[1] 
+    member += BossName + ":"
     for one in Booking1:
         member += one + " "
-    member += "\n" + BossList[2] + ":"
+    BossName = BossList[2] 
+    member += "\n" + BossName + ":"
     for one in Booking2:
         member += one + " "
-    member += "\n" + BossList[3] + ":"
+    BossName = BossList[3] 
+    member += "\n" + BossName + ":"
     for one in Booking3:
         member += one + " "
-    member += "\n" +  BossList[4] + ":"
+    BossName = BossList[4] 
+    member += "\n" +  BossName + ":"
     for one in Booking4:
         member += one + " "
-    member += "\n" +  BossList[5] + ":"
+    BossName = BossList[5] 
+    member += "\n" +  BossName + ":"
     for one in Booking5:
         member += one + " "
     await ctx.send(member)
 
 @bot.command()
-async def 予約する(ctx, a: int):
+async def 予約(ctx, a: int):
     flag = 0
     reply = ctx.author.display_name + "さんを"
     if a == 1:
@@ -115,26 +120,31 @@ async def 予約する(ctx, a: int):
         Booking5.append([ctx.author.display_name, str(ctx.author.mention)])
     else:
         flag = 1
-    Bossname = BossList[a] 
-    reply += Bossname + "に予約しました。"
+    BossName = BossList[a] 
+    reply += BossName + "に予約しました。"
     if flag == 1:
-        reply = "失敗しました。"
+        reply = "予約失敗しました。"
     await ctx.send(reply)
 
     member = "現在の予約↓\n"
-    member += BossList[1] + ":"
+    BossName = BossList[1] 
+    member += BossName + ":"
     for one in Booking1:
         member += one + " "
-    member += "\n" + BossList[2] + ":"
+    BossName = BossList[2] 
+    member += "\n" + BossName + ":"
     for one in Booking2:
         member += one + " "
-    member += "\n" + BossList[3] + ":"
+    BossName = BossList[3] 
+    member += "\n" + BossName + ":"
     for one in Booking3:
         member += one + " "
-    member += "\n" +  BossList[4] + ":"
+    BossName = BossList[4] 
+    member += "\n" +  BossName + ":"
     for one in Booking4:
         member += one + " "
-    member += "\n" +  BossList[5] + ":"
+    BossName = BossList[5] 
+    member += "\n" +  BossName + ":"
     for one in Booking5:
         member += one + " "
     await ctx.send(member)
