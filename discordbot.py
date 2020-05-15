@@ -69,11 +69,11 @@ async def 予約確認(ctx, a: int):
 async def 予約全削除(ctx):
     reply = "予約を全部消しちゃいます！"
     await ctx.send(reply)
-    Booking1 = []
-    Booking2 = []
-    Booking3 = []
-    Booking4 = []
-    Booking5 = []
+    Booking1.clear()
+    Booking2.clear()
+    Booking3.clear()
+    Booking4.clear()
+    Booking5.clear()
     reply = "コスモブルーフラッシュ!!"
     await ctx.send(reply)
 
