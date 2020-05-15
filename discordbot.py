@@ -106,6 +106,6 @@ async def ping(ctx):
 
 @bot.command()
 async def ぴんぐ(ctx):
-    await ctx.send('ぽんぐ')
+    await ctx.send('ぽ\nん\nぐ')
 
 bot.run(token)
