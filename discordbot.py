@@ -40,19 +40,33 @@ async def 予約確認(ctx, a: int):
     reply = "予約を表示しますね。"
     await ctx.send(reply)
     BossName = BossList[a]
-    BookList = "Booking" + str(a)
     member = ""
-    for one in eval(BookList):
-        member += one + " "
+    if a == 1:
+        for one in Booking1:
+            member += one + " "
+    elif a == 2:
+        for one in Booking2:
+            member += one + " "
+    elif a == 3:
+        for one in Booking3:
+            member += one + " "
+    elif a == 4:
+        for one in Booking4:
+            member += one + " "
+    else:
+        for one in Booking5:
+            member += one + " "
     await ctx.send(BossName + ":" + member)
 
 @bot.command()
 async def 予約全削除(ctx):
     reply = "予約を全部消しちゃいます！"
     await ctx.send(reply)
-    for Boss in BossNum:
-        BookList = "Booking" + Boss
-        eval(BookList).clear()
+    Booking1 = []
+    Booking2 = []
+    Booking3 = []
+    Booking4 = []
+    Booking5 = []
     reply = "コスモブルーフラッシュ!!"
     await ctx.send(reply)
 
@@ -60,15 +74,23 @@ async def 予約全削除(ctx):
 async def 予約全表示(ctx):
     reply = "予約を全部表示しますね。"
     await ctx.send(reply)
-    for Boss in BossNum:
-        tmpList = []
-        BookList = "Booking" + Boss
-        tmpList= [x[0] for x in eval(BookList)]
-            BossName = BossList[int(Boss)]
-            member = ""
-            for one in tmpList:
-                member += one + " "
-            await ctx.send(BossName + ":" + member)
+    BossName = BossList[a]
+    member = ""
+    for one in Booking1:
+        member += one + " "
+    await ctx.send(BossName + ":" + member)
+    for one in Booking2:
+        member += one + " "
+    await ctx.send(BossName + ":" + member)
+    for one in Booking3:
+        member += one + " "
+    await ctx.send(BossName + ":" + member)
+    for one in Booking4:
+        member += one + " "
+    await ctx.send(BossName + ":" + member)
+    for one in Booking5:
+        member += one + " "
+    await ctx.send(BossName + ":" + member)
 
 @bot.command()
 async def ping(ctx):
