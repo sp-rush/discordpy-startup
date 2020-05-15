@@ -101,24 +101,24 @@ async def 予約全表示(ctx):
 @bot.command()
 async def 予約する(ctx, a: int):
     flag = 0
-    reply = ctx.author + "さんを"
+    reply = ctx.author.display_name + "さんを"
     if a == 1:
-        Booking1.append([ctx.author, str(ctx.author.mention)])
+        Booking1.append([ctx.author.display_name, str(ctx.author.mention)])
     elif a == 2:
-        Booking2.append([ctx.author, str(ctx.author.mention)])
+        Booking2.append([ctx.author.display_name, str(ctx.author.mention)])
     elif a == 3:
-        Booking3.append([ctx.author, str(ctx.author.mention)])
+        Booking3.append([ctx.author.display_name, str(ctx.author.mention)])
     elif a == 4:
-        Booking4.append([ctx.author, str(ctx.author.mention)])
+        Booking4.append([ctx.author.display_name, str(ctx.author.mention)])
     elif a == 5:
-        Booking5.append([ctx.author, str(ctx.author.mention)])
+        Booking5.append([ctx.author.display_name, str(ctx.author.mention)])
     else:
         flag = 1
     Bossname = BossList[a] 
     reply += Bossname + "に予約しました。"
     if flag == 1:
         reply = "失敗しました。"
-    await message.channel.send(reply)
+    await ctx.send(reply)
 
     member = "現在の予約↓\n"
     member = BossList[1] + ":"
