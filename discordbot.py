@@ -38,6 +38,7 @@ async def 引き算(ctx, a: int, b: int):
 @bot.command()
 async def 予約確認(ctx, a: int):
     reply = "予約を表示しますね。"
+    flag = 0
     await ctx.send(reply)
     BossName = BossList[a]
     member = ""
@@ -53,10 +54,16 @@ async def 予約確認(ctx, a: int):
     elif a == 4:
         for one in Booking4:
             member += one + " "
-    else:
+    elif a == 5:
         for one in Booking5:
             member += one + " "
-    await ctx.send(BossName + ":" + member)
+    else:
+        flag = 1
+    
+    if flag == 0:
+        await ctx.send(BossName + ":" + member)
+    else:
+        await ctx.send("失敗しました。")
 
 @bot.command()
 async def 予約全削除(ctx):
@@ -74,6 +81,46 @@ async def 予約全削除(ctx):
 async def 予約全表示(ctx):
     reply = "予約を全部表示しますね。"
     await ctx.send(reply)
+    member = BossList[1] + ":"
+    for one in Booking1:
+        member += one + " "
+    member += "\n" + BossList[2] + ":"
+    for one in Booking2:
+        member += one + " "
+    member += "\n" + BossList[3] + ":"
+    for one in Booking3:
+        member += one + " "
+    member += "\n" +  BossList[4] + ":"
+    for one in Booking4:
+        member += one + " "
+    member += "\n" +  BossList[5] + ":"
+    for one in Booking5:
+        member += one + " "
+    await ctx.send(member)
+
+@bot.command()
+async def 予約する(ctx, a: int):
+    flag = 0
+    reply = ctx.author + "さんを"
+    if a == 1:
+        Booking1.append([ctx.author, str(ctx.author.mention)])
+    elif a == 2:
+        Booking2.append([ctx.author, str(ctx.author.mention)])
+    elif a == 3:
+        Booking3.append([ctx.author, str(ctx.author.mention)])
+    elif a == 4:
+        Booking4.append([ctx.author, str(ctx.author.mention)])
+    elif a == 5:
+        Booking5.append([ctx.author, str(ctx.author.mention)])
+    else:
+        flag = 1
+    Bossname = BossList[a] 
+    reply += Bossname + "に予約しました。"
+    if flag == 1:
+        reply = "失敗しました。"
+    await message.channel.send(reply)
+
+    member = "現在の予約↓\n"
     member = BossList[1] + ":"
     for one in Booking1:
         member += one + " "
