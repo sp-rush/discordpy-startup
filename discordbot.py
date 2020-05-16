@@ -1,5 +1,4 @@
-import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 from datetime import datetime
 import os
 import traceback
@@ -7,7 +6,6 @@ import traceback
 bot = commands.Bot(command_prefix='キョウカちゃん、')
 token = os.environ['DISCORD_BOT_TOKEN']
 CHANNEL_ID = 607555169751793674
-client = discord.Client()
 
 RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
@@ -22,15 +20,6 @@ Booking2 = [] # book→予約
 Booking3 = []
 Booking4 = []
 Booking5 = []
-
-@tasks.loop(seconds=60)
-async def loop():
-    now = datetime.now().strftime('%H:%M')
-    channel = client.get_channel(CHANNEL_ID)
-    await channel.send(now)
-
-loop.start()
-client.run(token)
 
 @bot.event
 async def on_command_error(ctx, error):
