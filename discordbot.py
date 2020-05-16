@@ -6,18 +6,9 @@ import os
 import traceback
 
 bot = commands.Bot(command_prefix='キョウカちゃん、')
-client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 CHANNEL_ID = 607555169751793674
-
-# 60秒に一回ループ
-@tasks.loop(seconds=60)
-async def loop():
-    # 現在の時刻
-    now = datetime.now().strftime('%H:%M')
-    #if now == '07:00':
-    channel = client.get_channel(CHANNEL_ID)
-    await channel.send('おはよう')  
+client = discord.Client()
 
 RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
@@ -161,6 +152,15 @@ async def ぴんぐ(ctx):
     await ctx.send('ぽんぐ')
 
 bot.run(token)
+
+# 60秒に一回ループ
+@tasks.loop(seconds=60)
+async def loop():
+    # 現在の時刻
+    now = datetime.now().strftime('%H:%M')
+    # if now == '07:00':
+    channel = client.get_channel(CHANNEL_ID)
+    await channel.send(now)  
 
 #ループ処理実行
 loop.start()
