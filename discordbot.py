@@ -1,9 +1,10 @@
 from discord.ext import commands
 from datetime import datetime
+import discord
 import os
 import traceback
 
-bot = commands.Bot(command_prefix='キョウカちゃん、')
+client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 CHANNEL_ID = 607555169751793674
 
@@ -11,7 +12,7 @@ RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
 DateCount = 0 # 日数
 DateCountLast = 0 # 最終日
-# BossNum = ["1","2","3","4","5"] # ボス番号
+BossNum = ["1","2","3","4","5"] # ボス番号
 BossList = ["0","ミノタウロス","トライロッカー","メガラパーン","ワイルドグリフォン","ゴブリングレート"] # ボス名前
 BossHP = 0 # ボスHP
 LoginList = [] #参戦メンバーリスト
@@ -21,131 +22,89 @@ Booking3 = []
 Booking4 = []
 Booking5 = []
 
-@bot.event
-async def on_command_error(ctx, error):
-    orig_error = getattr(error, "original", error)
-    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
+@client.event
+async def on_message(message):
+    listFlag = 0
+    deleteFlag = 0
+    displayFlag = 0
+    bookingFlag = 0
 
-@bot.command()
-async def 足し算(ctx, a: int, b: int):
-    ans = a + b
-    await ctx.send(str(a) + '+' + str(b) + 'は' + str(ans) + 'です')
+    if message.content.startswith("キョウカちゃん、")
+        if "ping" in message.content:
+            await message.channel.send("pong!")
+        elif "ぴんぐ" in message.content:
+            await message.channel.send("ぽんぐ!")
+        elif "確認" in message.content:
+            listFlag = 1
+        elif "全削除" in message.content:
+            deleteFlag = 1
+        elif "全表示" in message.content:
+            displayFlag = 1
+        elif "予約" in message.content:
+            bookFlag = 1
 
-@bot.command()
-async def 引き算(ctx, a: int, b: int):
-    ans = a - b
-    await ctx.send(str(a) + '-' + str(b) + 'は' + str(ans) + 'です')
 
-@bot.command()
-async def 予約確認(ctx, a: int):
-    reply = "予約を表示しますね。"
-    flag = 0
-    await ctx.send(reply)
-    BossName = BossList[a]
-    member = ""
-    if a == 1:
-        for one in Booking1:
-            member += one + " "
-    elif a == 2:
-        for one in Booking2:
-            member += one + " "
-    elif a == 3:
-        for one in Booking3:
-            member += one + " "
-    elif a == 4:
-        for one in Booking4:
-            member += one + " "
-    elif a == 5:
-        for one in Booking5:
-            member += one + " "
-    else:
-        flag = 1
-    
-    if flag == 0:
-        await ctx.send(BossName + ":" + member)
-    else:
-        await ctx.send("表示失敗しました。")
+#@bot.command()
+#async def 足し算(ctx, a: int, b: int):
+#    ans = a + b
+#    await ctx.send(str(a) + '+' + str(b) + 'は' + str(ans) + 'です')
 
-@bot.command()
-async def 予約全削除(ctx):
-    reply = "予約を全部消しちゃいます！"
-    await ctx.send(reply)
-    Booking1.clear()
-    Booking2.clear()
-    Booking3.clear()
-    Booking4.clear()
-    Booking5.clear()
-    reply = "コスモブルーフラッシュ!!"
-    await ctx.send(reply)
+#@bot.command()
+#async def 引き算(ctx, a: int, b: int):
+#    ans = a - b
+#    await ctx.send(str(a) + '-' + str(b) + 'は' + str(ans) + 'です')
 
-@bot.command()
-async def 予約全表示(ctx):
-    reply = "予約を全部表示しますね。"
-    await ctx.send(reply)
-    member = BossList[1] + ":"
-    for one in Booking1:
-        member += one + " "
-    member += "\n" + BossList[2] + ":"
-    for one in Booking2:
-        member += one + " "
-    member += "\n" + BossList[3] + ":"
-    for one in Booking3:
-        member += one + " "
-    member += "\n" + BossList[4] + ":"
-    for one in Booking4:
-        member += one + " "
-    member += "\n" + BossList[5] + ":"
-    for one in Booking5:
-        member += one + " "
-    await ctx.send(member)
+    if listFlag == 1:
+        reply = "予約を表示しますね。"
+        await message.channel.send(reply)
+        for i in BossNum:
+            tmpList = []
+            BossName = BossList[int(i)]
+            if i in message.content:
+                BookList = "Booking" + i
+                tmpList = [x[0] for x in eval(BookList)]
+                member = ""
+                for j in tmpList:
+                    member += j + " "
+                await message.channel.send(BossName + ":" + member)
+        listFlag = 0
 
-@bot.command()
-async def 予約(ctx, a: int):
-    flag = 0
-    reply = ctx.author.display_name + "さんを"
-    if a == 1:
-        Booking1.append(ctx.author.display_name)
-    elif a == 2:
-        Booking2.append(ctx.author.display_name)
-    elif a == 3:
-        Booking3.append(ctx.author.display_name)
-    elif a == 4:
-        Booking4.append(ctx.author.display_name)
-    elif a == 5:
-        Booking5.append(ctx.author.display_name)
-    else:
-        flag = 1
-    BossName = BossList[a] 
-    reply += BossName + "に予約しました。"
-    if flag == 1:
-        reply = "予約失敗しました。"
-    await ctx.send(reply)
+    elif deleteFlag == 1:
+        reply = "予約を全部消しちゃいます！"
+        await ctx.send(reply)
+        for i in BossNum:
+            BookList = "Booking" + i
+            eval(BookList).clear()
+        reply = "コスモブルーフラッシュ！！"
+        await message.channel.send(reply)
+        deleteFlag = 0
 
-    member = "現在の予約↓\n"
-    member += BossList[1] + ":"
-    for one in Booking1:
-        member += one + " "
-    member += "\n" + BossList[2] + ":"
-    for one in Booking2:
-        member += one + " "
-    member += "\n" + BossList[3] + ":"
-    for one in Booking3:
-        member += one + " "
-    member += "\n" + BossList[4] + ":"
-    for one in Booking4:
-        member += one + " "
-    member += "\n" + BossList[5] + ":"
-    for one in Booking5:
-        member += one + " "
-    await ctx.send(member)
+    elif displayFlag == 1:
+        reply = "予約を全部表示しますね。"
+        await ctx.send(reply)
+        for i in BossNum:
+            tmpList = []
+            BossName = BossList[int(i)]
+            BookList = "Booking" + i
+            tmpList= [x[0] for x in eval(BookList)]
+            member = ""
+            for j in tmpList:
+                member += j + " "
+            await message.channel.send(BossName + ":" + member)
+        displayFlag = 0
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
+    elif bookFlag == 1:
+        reply = message.author.display_name + "さんを"
+        for i in BossNum:
+            if i in message.content:
+                BookList = "Booking" + i
+                eval(BookList).append([message.author.display_name, str(message.author.mention)])
+                BossName = BossList[int(i)]
+                reply += " " + BossName
+        reply += " に予約しました。"
+        if reply == message.author.display_name + "さんを に予約しました。"
+            reply = "予約されませんでした。"
+        await message.channel.send(reply)
+        bookFlag = 0
 
-@bot.command()
-async def ぴんぐ(ctx):
-    await ctx.send('ぽんぐ')
-
-bot.run(token)
+client.run(token)
