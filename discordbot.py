@@ -1,4 +1,5 @@
-from discord.ext import commands
+import discord
+from discord.ext import commands, tasks
 from datetime import datetime
 import os
 import traceback
@@ -6,6 +7,7 @@ import traceback
 bot = commands.Bot(command_prefix='キョウカちゃん、')
 token = os.environ['DISCORD_BOT_TOKEN']
 CHANNEL_ID = 607555169751793674
+client = discord.Client()
 
 RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
@@ -14,12 +16,21 @@ DateCountLast = 0 # 最終日
 # BossNum = ["1","2","3","4","5"] # ボス番号
 BossList = ["0","ミノタウロス","トライロッカー","メガラパーン","ワイルドグリフォン","ゴブリングレート"] # ボス名前
 BossHP = 0 # ボスHP
-MemberList = [] #メンバーリスト
+LoginList = [] #参戦メンバーリスト
 Booking1 = ["すぷ","コペ丸"] # 予約を追加するリスト
 Booking2 = [] # book→予約
 Booking3 = []
 Booking4 = []
 Booking5 = []
+
+@tasks.loop(seconds=60)
+async def loop():
+    now = datetime.now().strftime('%H:%M')
+    channel = client.get_channel(CHANNEL_ID)
+    await channel.send(now)
+
+loop.start()
+client.run(token)
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -123,7 +134,7 @@ async def 予約(ctx, a: int):
     await ctx.send(reply)
 
     member = "現在の予約↓\n"
-    member = BossList[1] + ":"
+    member += BossList[1] + ":"
     for one in Booking1:
         member += one + " "
     member += "\n" + BossList[2] + ":"
