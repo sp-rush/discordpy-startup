@@ -19,11 +19,6 @@ async def loop():
         channel = client.get_channel(CHANNEL_ID)
         await channel.send('おはよう')  
 
-#ループ処理実行
-loop.start()
-
-client.run(token)
-
 RoundCount = 0 # 周回数
 StageCount = 0 # 段階数
 DateCount = 0 # 日数
@@ -166,3 +161,8 @@ async def ぴんぐ(ctx):
     await ctx.send('ぽんぐ')
 
 bot.run(token)
+
+#ループ処理実行
+loop.start()
+
+client.run(token)
