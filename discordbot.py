@@ -4,7 +4,7 @@ import os
 import traceback
 
 client = discord.Client()
-token = os.environ['DISCORD_BOT_TOKEN']
+TOKEN = os.environ['DISCORD_BOT_TOKEN']
 CHANNEL_ID = 607555169751793674
 
 RoundCount = 0 # 周回数
@@ -106,4 +106,4 @@ async def on_message(message):
         await message.channel.send(reply)
         bookFlag = 0
 
-client.run(token)
+client.run(TOKEN)
